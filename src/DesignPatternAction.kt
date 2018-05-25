@@ -17,8 +17,8 @@ import javax.tools.JavaFileObject
 
 class DesignPatternAction : BaseGenerateAction {
 
-    private var psiElementFactory: PsiElementFactory? = null
-    private val mDialog = DesignPatternJFrame("DesignPattern")
+    private lateinit var psiElementFactory: PsiElementFactory
+    private lateinit var mDialog : DesignPatternJFrame
 
     constructor() : super(null)
 
@@ -40,9 +40,10 @@ class DesignPatternAction : BaseGenerateAction {
         val mFile = PsiUtilBase.getPsiFileInEditor(editor!!, project!!)
         val psiClass = getTargetClass(editor, mFile!!)
         psiElementFactory = JavaPsiFacade.getElementFactory(project)
-        //psiElementFactory.createClassFromText()
-        mDialog.updateActionModel(ActionModel(project, editor, mFile, psiClass))
+        mDialog = DesignPatternJFrame("DesignPattern")
+        mDialog.updateActionModel(ActionModel(project, editor, mFile, psiClass, psiElementFactory))
         showDesignPatternJFrame(event)
+
     }
 
     private fun showDesignPatternJFrame(e: AnActionEvent) {
@@ -51,11 +52,5 @@ class DesignPatternAction : BaseGenerateAction {
         mDialog.pack()
         mDialog.setLocationRelativeTo(null)
         mDialog.isVisible = true
-    }
-
-    private fun closeJFrame() {
-        mDialog.isVisible = false
-        mDialog.dispose()
-
     }
 }

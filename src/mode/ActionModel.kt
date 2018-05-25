@@ -3,6 +3,7 @@ package mode
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiClass
+import com.intellij.psi.PsiElementFactory
 import com.intellij.psi.PsiFile
 
 /**
@@ -11,4 +12,5 @@ import com.intellij.psi.PsiFile
  * @time 2018/5/11
  */
 data class ActionModel(val project: Project, val editor: Editor,
-                       val psiFile: PsiFile, val psiClass: PsiClass?)
+                       val psiFile: PsiFile, val psiClass: PsiClass?,
+                       val psiElementFactory: PsiElementFactory)

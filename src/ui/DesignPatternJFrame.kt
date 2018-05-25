@@ -19,18 +19,18 @@ import javax.swing.plaf.metal.MetalButtonUI
  */
 class DesignPatternJFrame(title: String?) : JFrame(title) {
 
-    private val supportPatternEnums = HashSet<DesignPatternEnum>()
+    private val supportPatternEnums = LinkedHashSet<DesignPatternEnum>()
     private val supportPatternModels = ArrayList<DesignPatternModel>()
     private var gridLayout: GridLayout? = null
-    private var actionModel: ActionModel? = null
+    private lateinit var actionModel: ActionModel
 
     init {
         supportPatternEnums.add(DesignPatternEnum.Singleton)
         supportPatternEnums.add(DesignPatternEnum.Builder)
-        supportPatternEnums.add(DesignPatternEnum.Adapter)
         supportPatternEnums.add(DesignPatternEnum.Factory)
-        supportPatternEnums.add(DesignPatternEnum.Chain)
         supportPatternEnums.add(DesignPatternEnum.Strategy)
+        supportPatternEnums.add(DesignPatternEnum.Adapter)
+        supportPatternEnums.add(DesignPatternEnum.Chain)
         supportPatternEnums.add(DesignPatternEnum.Bridge)
 
         for ((index, item) in supportPatternEnums.withIndex()) {
@@ -66,11 +66,17 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
      * 处理点击事件
      */
     private fun dealPatternClick(model: DesignPatternModel) {
+        closeJFrame()
         val handler = DesignPatternHandlerFactory.generateHandler(model)
-        handler.handle(actionModel!!, model)
+        handler.handle(actionModel, model)
     }
 
     fun updateActionModel(actionModel: ActionModel) {
         this.actionModel = actionModel
+    }
+
+    private fun closeJFrame() {
+        isVisible = false
+        dispose()
     }
 }

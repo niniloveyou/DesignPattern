@@ -13,4 +13,6 @@ interface IDesignPatternHandler {
     fun handle(actionModel: ActionModel, model: DesignPatternModel)
 
     fun generateModel() : ClassMessage
+
+    fun onConfirmClick()
 }

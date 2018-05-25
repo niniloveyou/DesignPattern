@@ -14,9 +14,8 @@ class Utils {
         /**
          * 获取设计模式名称
          */
-        fun getNameByDesignPattern(pattern: DesignPatternEnum): String {
-
-            return when (pattern) {
+        fun getNameByDesignPattern(pattern: DesignPatternEnum)
+                : String = when (pattern) {
                 DesignPatternEnum.Singleton -> "单例模式"
                 DesignPatternEnum.Bridge -> "桥接模式"
                 DesignPatternEnum.Builder -> "建造者模式"
@@ -25,6 +24,6 @@ class Utils {
                 DesignPatternEnum.Factory -> "工厂模式"
                 DesignPatternEnum.Chain -> "责任链模式"
             }
-        }
+
     }
 }
