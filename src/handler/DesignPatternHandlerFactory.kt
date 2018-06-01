@@ -1,6 +1,5 @@
 package handler
 
-import handler.singleton.SingletonHandler
 import mode.DesignPatternEnum
 import mode.DesignPatternModel
 
@@ -17,13 +16,13 @@ class DesignPatternHandlerFactory {
          */
         fun generateHandler(model: DesignPatternModel) : IDesignPatternHandler {
             return when(model.patternEnum) {
-                DesignPatternEnum.Singleton -> SingletonHandler()
-                DesignPatternEnum.Bridge -> SingletonHandler()
-                DesignPatternEnum.Builder -> SingletonHandler()
-                DesignPatternEnum.Strategy -> SingletonHandler()
-                DesignPatternEnum.Adapter -> SingletonHandler()
-                DesignPatternEnum.Factory -> SingletonHandler()
-                DesignPatternEnum.Chain -> SingletonHandler()
+                DesignPatternEnum.Singleton -> SingletonHandler(true, true)
+                DesignPatternEnum.Bridge -> SingletonHandler(true, true)
+                DesignPatternEnum.Builder -> SingletonHandler(true, true)
+                DesignPatternEnum.Strategy -> SingletonHandler(true, true)
+                DesignPatternEnum.Adapter -> SingletonHandler(true, true)
+                DesignPatternEnum.Factory -> SingletonHandler(true, true)
+                DesignPatternEnum.Chain -> SingletonHandler(true, true)
             }
         }
     }

@@ -13,7 +13,6 @@ import mode.ActionModel
 import ui.DesignPatternJFrame
 import java.awt.Dimension
 import javax.swing.WindowConstants
-import javax.tools.JavaFileObject
 
 class DesignPatternAction : BaseGenerateAction {
 
