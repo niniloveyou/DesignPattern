@@ -9,8 +9,6 @@ import ui.Toast
  */
 open class ProgressCodeWriterCallback() : CodeWriterCallback {
 
-    private lateinit var progressDialog: ProgressDialog
-
     override fun onStart() {
 
     }

@@ -40,7 +40,7 @@ class DesignPatternAction : BaseGenerateAction {
         val psiClass = getTargetClass(editor, mFile!!)
         psiElementFactory = JavaPsiFacade.getElementFactory(project)
         mDialog = DesignPatternJFrame("DesignPattern")
-        mDialog.updateActionModel(ActionModel(project, editor, mFile, psiClass, psiElementFactory))
+        mDialog.updateActionModel(ActionModel(project, editor, mFile, psiClass!!, psiElementFactory))
         showDesignPatternJFrame(event)
 
     }

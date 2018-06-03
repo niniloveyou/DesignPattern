@@ -4,6 +4,7 @@ import callback.ProgressCodeWriterCallback
 import code.DesignPatternCodeGenerateFactory
 import code.ICodeGenerate
 import code.SingletonHungryGenerate
+import code.SingletonType
 import handler.BaseHandler
 import mode.ActionModel
 import mode.CodeType
@@ -22,12 +23,16 @@ class SingletonHandler(private val supportPoet: Boolean,
                         : BaseHandler(supportPoet, supportPsi) {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
-        // ui
-        generateJFrame()
-        // do set message
-        var entity = SingletonEntity()
 
-        DesignPatternCodeWriter.write(actionModel, model, entity, CodeType.Poet,
+
+
+
+        // do set message
+        val entity = SingletonEntity(SingletonType.Hungry)
+        // entity.packageName = "com.aop"
+        // entity.className = "FunctionMenuManager"
+        // entity.filePath = "/Users/duoke/Aop/app/src/main/java/deadline/ui"
+        DesignPatternCodeWriter.write(actionModel, model, entity, CodeType.Psi,
                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity),
                 ProgressCodeWriterCallback())
     }
