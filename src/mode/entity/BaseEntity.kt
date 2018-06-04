@@ -11,4 +11,6 @@ open class BaseEntity {
     lateinit var packageName: String
 
     lateinit var filePath: String
+
+    var kotlin: Boolean = false
 }

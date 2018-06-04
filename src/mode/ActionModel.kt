@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElementFactory
 import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiFileFactory
 
 /**
  * 共享数据单元
@@ -13,4 +14,5 @@ import com.intellij.psi.PsiFile
  */
 data class ActionModel(val project: Project, val editor: Editor,
                        val psiFile: PsiFile, val psiClass: PsiClass,
-                       val psiElementFactory: PsiElementFactory)
+                       val psiElementFactory: PsiElementFactory,
+                       val psiFileFactory: PsiFileFactory)

@@ -4,10 +4,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.JavaPsiFacade
-import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiElementFactory
-import com.intellij.psi.PsiFile
+import com.intellij.psi.*
 import com.intellij.psi.util.PsiUtilBase
 import mode.ActionModel
 import ui.DesignPatternJFrame
@@ -40,7 +37,8 @@ class DesignPatternAction : BaseGenerateAction {
         val psiClass = getTargetClass(editor, mFile!!)
         psiElementFactory = JavaPsiFacade.getElementFactory(project)
         mDialog = DesignPatternJFrame("DesignPattern")
-        mDialog.updateActionModel(ActionModel(project, editor, mFile, psiClass!!, psiElementFactory))
+        mDialog.updateActionModel(ActionModel(project, editor, mFile,
+                psiClass!!, psiElementFactory, PsiFileFactory.getInstance(project)))
         showDesignPatternJFrame(event)
 
     }
@@ -52,4 +50,26 @@ class DesignPatternAction : BaseGenerateAction {
         mDialog.setLocationRelativeTo(null)
         mDialog.isVisible = true
     }
+
+    val directory: PsiDirectory? =
+            if (navigatable is PsiDirectory) {
+                navigatable
+            } else if (navigatable is PsiFile) {
+                navigatable.containingDirectory
+            } else {
+                val root = ModuleRootManager.getInstance(module)
+                var tempDirectory: PsiDirectory? = null
+                for (file in root.sourceRoots) {
+                    tempDirectory = PsiManager.getInstance(project).findDirectory(file)
+                    if (tempDirectory != null) {
+                        break
+                    }
+                }
+                tempDirectory
+            }
+    directory?.let {
+        val directoryFactory = PsiDirectoryFactory.getInstance(directory.getProject())
+        val packageName = directoryFactory.getQualifiedName(directory, false)
+        val psiFileFactory = PsiFileFactory.getInstance(project)
+        val packageDeclare = if (packageName.isNotEmpty()) "package $packageName" else ""
 }

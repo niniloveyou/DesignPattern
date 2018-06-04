@@ -12,8 +12,8 @@ import mode.entity.BaseEntity
 interface ICodeGenerate<T: BaseEntity> {
 
     /** 在当前文件直接修改 **/
-    fun generatePsi(entity: T, actionModel: ActionModel)
+    fun generateCode(entity: T, actionModel: ActionModel)
 
     /** 生成新的java 文件 **/
-    fun generatePoet(entity: T): List<Tuple2<String, JavaFile>>
+    fun generateFile(entity: T): List<Tuple2<String, JavaFile>>
 }

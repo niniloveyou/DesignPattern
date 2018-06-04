@@ -20,7 +20,7 @@ enum class SingletonType {
 
 class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
 
-    override fun generatePoet(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
+    override fun generateFile(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
         val thisType = ClassName.get(entity.packageName, entity.className)
 
         val fieldSpec = FieldSpec.builder(thisType, "instance", Modifier.PRIVATE, Modifier.STATIC)
@@ -55,7 +55,7 @@ class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
         return arrayListOf(Tuple2(entity.filePath, javaFile))
     }
 
-    override fun generatePsi(entity: SingletonEntity, actionModel: ActionModel) {
+    override fun generateCode(entity: SingletonEntity, actionModel: ActionModel) {
         val className = actionModel.psiClass.nameIdentifier!!.text
 
         val instanceField = "private static $className instance = new $className();"
@@ -77,11 +77,11 @@ class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
 
 class SingletonLazyGenerate(): ICodeGenerate<SingletonEntity>{
 
-    override fun generatePoet(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
+    override fun generateFile(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
         return emptyList()
     }
 
-    override fun generatePsi(entity: SingletonEntity, actionModel: ActionModel) {
+    override fun generateCode(entity: SingletonEntity, actionModel: ActionModel) {
 
     }
 }

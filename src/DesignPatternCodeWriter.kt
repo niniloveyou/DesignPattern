@@ -6,10 +6,6 @@ import mode.CodeType
 import mode.DesignPatternModel
 import mode.entity.BaseEntity
 import callback.ProgressCodeWriterCallback
-import com.intellij.openapi.progress.ProgressIndicator
-import com.intellij.openapi.progress.ProgressManager
-import com.intellij.openapi.progress.Task
-import com.intellij.openapi.ui.MessageType
 import com.intellij.psi.codeStyle.CodeStyleManager
 import com.squareup.javapoet.JavaFile
 import groovy.lang.Tuple2
@@ -30,10 +26,10 @@ object DesignPatternCodeWriter {
         WriteCommandAction.runWriteCommandAction(actionModel.project,
                 Runnable {
                     if (codeType == CodeType.Psi) {
-                        generate.generatePsi(entity, actionModel)
+                        generate.generateCode(entity, actionModel)
                         CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass!!);
                     } else {
-                        writeFile(generate.generatePoet(entity))
+                        writeFile(generate.generateFile(entity))
                     }
                 })
 
