@@ -12,5 +12,6 @@ open class BaseEntity {
 
     lateinit var filePath: String
 
+    /** 是否支持kotlin **/
     var kotlin: Boolean = false
 }
