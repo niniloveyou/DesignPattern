@@ -29,7 +29,7 @@ object DesignPatternCodeWriter {
                         generate.generateCode(entity, actionModel)
                         CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass!!);
                     } else {
-                        writeFile(generate.generateFile(entity))
+                        writeFile(actionModel, generate.generateFile(entity))
                     }
                 })
 
@@ -44,12 +44,21 @@ object DesignPatternCodeWriter {
         })*/
     }
 
-    private fun writeFile(list: List<Tuple2<String, JavaFile>>){
+    private fun writeFile(actionModel: ActionModel, list: List<Tuple2<String, JavaFile>>){
         var tempFile: File
         for (i in list.indices) {
             val item = list[i]
             tempFile = File(item.first)
             item.second.writeTo(tempFile)
+           // actionModel.psiFileFactory.createFileFromText(tempFile.toString(), )
         }
     }
+
+    //if (ConfigManager.enableAutoReformat) {
+    //                var processor: AbstractLayoutCodeProcessor =
+    //                    ReformatCodeProcessor(project, fileAdded as PsiFile, null, false)
+    //                processor = OptimizeImportsProcessor(processor)
+    //                processor = RearrangeCodeProcessor(processor)
+    //                processor.run()
+    //            }
 }
