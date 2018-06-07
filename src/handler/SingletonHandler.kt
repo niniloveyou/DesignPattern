@@ -5,12 +5,15 @@ import code.DesignPatternCodeGenerateFactory
 import code.ICodeGenerate
 import code.SingletonHungryGenerate
 import code.SingletonType
+import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.openapi.vfs.VirtualFile
 import handler.BaseHandler
 import mode.ActionModel
 import mode.CodeType
 import mode.DesignPatternModel
 import mode.entity.BaseEntity
 import mode.entity.SingletonEntity
+import utils.Utils
 
 
 /**
@@ -29,10 +32,12 @@ class SingletonHandler(private val supportPoet: Boolean,
 
         // do set message
         val entity = SingletonEntity(SingletonType.Hungry)
-        // entity.packageName = "com.aop"
-        // entity.className = "FunctionMenuManager"
-        // entity.filePath = "/Users/duoke/Aop/app/src/main/java/deadline/ui"
-        DesignPatternCodeWriter.write(actionModel, model, entity, CodeType.Psi,
+         entity.packageName = Utils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
+         entity.className = "FunctionMenuManager"
+         val virtualFile = actionModel.psiFile.virtualFile
+
+         entity.filePath = virtualFile.path.replace(virtualFile.name, "")
+         DesignPatternCodeWriter.write(actionModel, model, entity, CodeType.Poet,
                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity),
                 ProgressCodeWriterCallback())
     }

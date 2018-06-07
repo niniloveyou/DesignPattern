@@ -29,8 +29,7 @@ class DesignPatternAction : BaseGenerateAction {
     }
 
     override fun isValidForFile(project: Project, editor: Editor, file: PsiFile): Boolean {
-        return true
-        // return super.isValidForFile(project, editor, file)
+         return super.isValidForFile(project, editor, file)
     }
 
     override fun actionPerformed(event: AnActionEvent) {

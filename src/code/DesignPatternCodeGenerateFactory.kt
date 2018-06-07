@@ -21,7 +21,11 @@ class DesignPatternCodeGenerateFactory {
            when(model.patternEnum) {
                 DesignPatternEnum.Singleton -> {
                     val singleton = entity as SingletonEntity
-                    if(singleton.type == SingletonType.Hungry) SingletonHungryGenerate() else SingletonLazyGenerate() as ICodeGenerate<T>
+                    return if (singleton.type == SingletonType.Hungry) {
+                        SingletonHungryGenerate() as ICodeGenerate<T>
+                    } else {
+                        SingletonLazyGenerate() as ICodeGenerate<T>
+                    }
                 }
 
                DesignPatternEnum.Builder -> {
