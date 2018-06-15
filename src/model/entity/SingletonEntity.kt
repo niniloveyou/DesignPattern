@@ -1,4 +1,4 @@
-package mode.entity
+package model.entity
 
 import code.SingletonType
 

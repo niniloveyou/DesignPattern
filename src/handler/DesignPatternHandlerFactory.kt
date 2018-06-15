@@ -1,7 +1,7 @@
 package handler
 
-import mode.DesignPatternEnum
-import mode.DesignPatternModel
+import model.DesignPatternEnum
+import model.DesignPatternModel
 
 /**
  * @author deadline

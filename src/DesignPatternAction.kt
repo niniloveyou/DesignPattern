@@ -9,7 +9,7 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.psi.*
 import com.intellij.psi.impl.file.PsiDirectoryFactory
 import com.intellij.psi.util.PsiUtilBase
-import mode.ActionModel
+import model.ActionModel
 import ui.DesignPatternJFrame
 import java.awt.Dimension
 import javax.swing.WindowConstants
@@ -39,7 +39,7 @@ class DesignPatternAction : BaseGenerateAction {
         val mFile = PsiUtilBase.getPsiFileInEditor(editor!!, project!!)
         val psiClass = getTargetClass(editor, mFile!!)
         psiElementFactory = JavaPsiFacade.getElementFactory(project)
-
+        var directory = mFile.containingDirectory
 
         mDialog = DesignPatternJFrame("DesignPattern")
         mDialog.updateActionModel(ActionModel(project,
@@ -47,38 +47,9 @@ class DesignPatternAction : BaseGenerateAction {
                 psiClass!!, psiElementFactory,
                 PsiFileFactory.getInstance(project),
                 PsiDirectoryFactory.getInstance(project),
-                getPsiDirectory(project, event)))
+                directory))
         showDesignPatternJFrame(event)
 
-    }
-
-    /**
-     * 获取当前操作的文件夹
-     */
-    private fun getPsiDirectory(project: Project, event: AnActionEvent): PsiDirectory? {
-        var directory: PsiDirectory? = null
-        val dataContext = event.dataContext
-        val module = LangDataKeys.MODULE.getData(dataContext)
-        module?.let {
-            val navigatable = LangDataKeys.NAVIGATABLE.getData(dataContext)
-            directory = if (navigatable is PsiDirectory) {
-                navigatable
-            } else if (navigatable is PsiFile) {
-                navigatable.containingDirectory
-            } else {
-                val root = ModuleRootManager.getInstance(module)
-                var tempDirectory: PsiDirectory? = null
-                for (file in root.sourceRoots) {
-                    tempDirectory = PsiManager.getInstance(project).findDirectory(file)
-                    if (tempDirectory != null) {
-                        break
-                    }
-                }
-                tempDirectory
-            }
-        }
-
-        return directory
     }
 
     private fun showDesignPatternJFrame(e: AnActionEvent) {

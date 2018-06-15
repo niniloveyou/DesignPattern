@@ -2,8 +2,7 @@ package utils
 
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.impl.file.PsiDirectoryFactory
-import mode.DesignPatternEnum
-import java.lang.IllegalArgumentException
+import model.DesignPatternEnum
 
 /**
  * @author deadline
@@ -27,5 +26,5 @@ object Utils {
 
     fun getPackageName(directoryFactory: PsiDirectoryFactory, directory: PsiDirectory?): String = directoryFactory.getQualifiedName(directory!!, false)
 
-    fun getCodePackageName(packageName: String): String = if (packageName.isNotEmpty()) "package $packageName" else ""
+    fun getCodePackageName(packageName: String): String = if (packageName.isNotEmpty()) "package $packageName;" else ""
 }

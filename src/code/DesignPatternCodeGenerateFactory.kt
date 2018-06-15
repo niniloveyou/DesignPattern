@@ -1,9 +1,9 @@
 package code
 
-import mode.DesignPatternEnum
-import mode.DesignPatternModel
-import mode.entity.BaseEntity
-import mode.entity.SingletonEntity
+import model.DesignPatternEnum
+import model.DesignPatternModel
+import model.entity.BaseEntity
+import model.entity.SingletonEntity
 
 /**
  * @author deadline

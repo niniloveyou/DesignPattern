@@ -1,4 +1,4 @@
-package mode
+package model
 
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.vfs.VirtualFile

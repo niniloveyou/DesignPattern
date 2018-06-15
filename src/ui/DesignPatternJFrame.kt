@@ -1,9 +1,9 @@
 package ui
 
 import handler.DesignPatternHandlerFactory
-import mode.ActionModel
-import mode.DesignPatternEnum
-import mode.DesignPatternModel
+import model.ActionModel
+import model.DesignPatternEnum
+import model.DesignPatternModel
 import utils.Utils
 import java.awt.GridLayout
 import java.awt.event.ActionListener

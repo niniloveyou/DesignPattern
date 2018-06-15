@@ -1,4 +1,4 @@
-package mode
+package model
 
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project

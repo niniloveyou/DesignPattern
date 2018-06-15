@@ -1,4 +1,6 @@
-package mode.entity
+package model.entity
+
+import model.CodeType
 
 /**
  * @author deadline
@@ -9,9 +11,4 @@ open class BaseEntity {
     lateinit var className: String
 
     lateinit var packageName: String
-
-    lateinit var filePath: String
-
-    /** 是否支持kotlin **/
-    var kotlin: Boolean = false
 }

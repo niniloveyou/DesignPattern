@@ -1,7 +1,7 @@
 package handler
 
-import mode.ActionModel
-import mode.DesignPatternModel
+import model.ActionModel
+import model.DesignPatternModel
 
 /**
  * @author deadline
@@ -13,12 +13,12 @@ interface IDesignPatternSupport {
     /**
      * 是否支持直接创建文件
      */
-    fun supportPoet() : Boolean
+    fun supportCreate() : Boolean
 
     /**
      * 是否支持在当前文件上操作
      */
-    fun supportPsi() : Boolean
+    fun supportUpdate() : Boolean
 }
 
 interface IDesignPatternHandler : IDesignPatternSupport {

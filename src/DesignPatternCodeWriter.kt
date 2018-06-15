@@ -1,18 +1,13 @@
 import callback.CodeWriterCallback
+import callback.ProgressCodeWriterCallback
 import code.ICodeGenerate
 import com.intellij.openapi.command.WriteCommandAction
-import mode.ActionModel
-import mode.CodeType
-import mode.DesignPatternModel
-import mode.entity.BaseEntity
-import callback.ProgressCodeWriterCallback
-import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.fileEditor.OpenFileDescriptor
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.ui.MessageType
 import com.intellij.psi.codeStyle.CodeStyleManager
-import com.squareup.javapoet.JavaFile
-import groovy.lang.Tuple2
-import mode.JavaFileType
+import model.*
+import model.entity.BaseEntity
+import ui.Toast
+import utils.Utils
 import java.io.File
 
 /**
@@ -22,52 +17,43 @@ import java.io.File
 object DesignPatternCodeWriter {
 
     fun <T: BaseEntity> write(actionModel: ActionModel,
-              model: DesignPatternModel,
-              entity: T, codeType: CodeType,
-              generate: ICodeGenerate<T>,
-              callback: CodeWriterCallback = ProgressCodeWriterCallback()) {
+                              model: DesignPatternModel,
+                              entity: T,
+                              actionType: ActionType,
+                              generate: ICodeGenerate<T>,
+                              callback: CodeWriterCallback = ProgressCodeWriterCallback()) {
 
         WriteCommandAction.runWriteCommandAction(actionModel.project,
                 Runnable {
-                    if (codeType == CodeType.Psi) {
+                    if (actionType == ActionType.Update) {
                         generate.generateCode(entity, actionModel)
-                        CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass);
+                        CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass)
                     } else {
                         writeFile(actionModel, generate.generateFile(entity))
                     }
                 })
     }
 
-    private fun writeFile(actionModel: ActionModel, list: List<Tuple2<String, JavaFile>>){
+    private fun writeFile(actionModel: ActionModel, list: List<CodeFile>){
         var tempFile: File
         for (i in list.indices) {
             val item = list[i]
-            tempFile = File(item.first)
-            item.second.writeTo(tempFile)
-            FileEditorManager.getInstance(actionModel.project).openTextEditor(OpenFileDescriptor(actionModel.project, virtualFile), true)
+            val fileType = if (item.codeType == CodeType.Java) JavaFileType() else KotlinFileType()
+
+            val psiFile = actionModel.psiFileFactory.createFileFromText(
+                    item.file.typeSpec!!.name + fileType.defaultExtension,
+                    fileType,
+                    item.file.toString())
+
+            if (actionModel.psiDirectory == null) {
+                Toast.make(actionModel.project, MessageType.ERROR, "can not find directory!!!")
+                return
+            }
+
+            actionModel.psiDirectory!!.add(psiFile)
+
+             // 用编辑器打开指定文件
+            //FileEditorManager.getInstance(actionModel.project).openTextEditor(OpenFileDescriptor(actionModel.project, psiFile.virtualFile), true)
         }
     }
-
-    /*ProgressManager.getInstance().run(object : Task.Backgroundable(actionModel.project, "DesignPattern") {
-
-           override fun run(progressIndicator: ProgressIndicator) {
-               progressIndicator.isIndeterminate = true
-               execute()
-               progressIndicator.isIndeterminate = false
-               progressIndicator.fraction = 1.0
-           }
-       })*/
-    // val psiFile = actionModel.psiFileFactory.createFileFromText("Single.java", JavaFileType(), item.second.toString())
-    // actionModel.psiDirectory!!.add(psiFile)
-    // if (ConfigManager.enableAutoReformat) {
-    //                var processor: AbstractLayoutCodeProcessor =
-    //                    ReformatCodeProcessor(project, fileAdded as PsiFile, null, false)
-    //                processor = OptimizeImportsProcessor(processor)
-    //                processor = RearrangeCodeProcessor(processor)
-    //                processor.run()
-    //            }
-
-    // 用编辑器打开指定文件
-    // FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, virtualFile), true);
-
 }

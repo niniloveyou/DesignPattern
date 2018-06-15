@@ -1,12 +1,12 @@
 package code
 
 import com.squareup.javapoet.*
-import groovy.lang.Tuple2
-import mode.entity.SingletonEntity
+import model.entity.SingletonEntity
 import utils.Space
 import javax.lang.model.element.Modifier
-import mode.ActionModel
+import model.ActionModel
 import com.intellij.psi.PsiModifier
+import model.CodeFile
 
 
 /**
@@ -20,7 +20,7 @@ enum class SingletonType {
 
 class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
 
-    override fun generateFile(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
+    override fun generateFile(entity: SingletonEntity): List<CodeFile> {
         val thisType = ClassName.get(entity.packageName, entity.className)
 
         val fieldSpec = FieldSpec.builder(thisType, "instance", Modifier.PRIVATE, Modifier.STATIC)
@@ -52,7 +52,7 @@ class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
                 .builder(entity.packageName, classSpec)
                 .build()
 
-        return arrayListOf(Tuple2(entity.filePath, javaFile))
+        return arrayListOf(CodeFile(javaFile, entity.packageName))
     }
 
     override fun generateCode(entity: SingletonEntity, actionModel: ActionModel) {
@@ -77,7 +77,7 @@ class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity>{
 
 class SingletonLazyGenerate(): ICodeGenerate<SingletonEntity>{
 
-    override fun generateFile(entity: SingletonEntity): List<Tuple2<String, JavaFile>> {
+    override fun generateFile(entity: SingletonEntity): List<CodeFile> {
         return emptyList()
     }
 

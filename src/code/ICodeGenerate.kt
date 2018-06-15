@@ -2,8 +2,9 @@ package code
 
 import com.squareup.javapoet.JavaFile
 import groovy.lang.Tuple2
-import mode.ActionModel
-import mode.entity.BaseEntity
+import model.ActionModel
+import model.CodeFile
+import model.entity.BaseEntity
 
 /**
  * @author deadline
@@ -15,5 +16,5 @@ interface ICodeGenerate<T: BaseEntity> {
     fun generateCode(entity: T, actionModel: ActionModel)
 
     /** 生成新的java 文件 **/
-    fun generateFile(entity: T): List<Tuple2<String, JavaFile>>
+    fun generateFile(entity: T): List<CodeFile>
 }

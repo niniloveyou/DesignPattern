@@ -1,4 +1,4 @@
-package mode
+package model
 
 enum class DesignPatternEnum {
 

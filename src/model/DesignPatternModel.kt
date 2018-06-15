@@ -1,6 +1,4 @@
-package mode
-
-import com.intellij.ui.components.JBPanel
+package model
 
 data class DesignPatternModel(val patternEnum: DesignPatternEnum,
                               val title: String,
