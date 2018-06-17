@@ -2,12 +2,13 @@ import callback.CodeWriterCallback
 import callback.ProgressCodeWriterCallback
 import code.ICodeGenerate
 import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.ui.MessageType
 import com.intellij.psi.codeStyle.CodeStyleManager
 import model.*
 import model.entity.BaseEntity
 import ui.Toast
-import utils.Utils
 import java.io.File
 
 /**
@@ -53,7 +54,8 @@ object DesignPatternCodeWriter {
             actionModel.psiDirectory!!.add(psiFile)
 
              // 用编辑器打开指定文件
-            //FileEditorManager.getInstance(actionModel.project).openTextEditor(OpenFileDescriptor(actionModel.project, psiFile.virtualFile), true)
+           /* FileEditorManager.getInstance(actionModel.project)
+                    .openTextEditor(OpenFileDescriptor(actionModel.project, psiFile.virtualFile), true)*/
         }
     }
 }

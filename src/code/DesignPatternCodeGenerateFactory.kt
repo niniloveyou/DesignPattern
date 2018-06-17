@@ -29,7 +29,7 @@ class DesignPatternCodeGenerateFactory {
                 }
 
                DesignPatternEnum.Builder -> {
-
+                    return BuilderGenerate() as ICodeGenerate<T>
                }
             }
             throw IllegalArgumentException("unknown design pattern !!!")

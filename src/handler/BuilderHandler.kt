@@ -1,0 +1,31 @@
+package handler
+
+import code.DesignPatternCodeGenerateFactory
+import model.ActionModel
+import model.DesignPatternModel
+import utils.Utils
+import model.entity.BuilderEntity
+import model.ActionType
+
+/**
+ * @author deadline
+ * @time 2018/6/15
+ */
+class BuilderHandler(private val supportCreate: Boolean,
+                     private val supportUpdate: Boolean)
+    : BaseHandler(supportCreate, supportUpdate)  {
+
+    override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
+        val entity = BuilderEntity()
+        entity.packageName = Utils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
+        entity.className = "ClassConfig"
+
+        DesignPatternCodeWriter.write(
+                actionModel,
+                model,
+                entity,
+                ActionType.Create,
+                DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity)
+        )
+    }
+}

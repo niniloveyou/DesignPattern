@@ -5,12 +5,10 @@ import model.ActionModel
 import model.DesignPatternEnum
 import model.DesignPatternModel
 import utils.Utils
+import java.awt.Color
 import java.awt.GridLayout
 import java.awt.event.ActionListener
-import javax.swing.BorderFactory
-import javax.swing.JButton
-import javax.swing.JFrame
-import javax.swing.SwingConstants
+import javax.swing.*
 import javax.swing.plaf.metal.MetalButtonUI
 
 /**
@@ -53,6 +51,7 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
      * 添加button
      */
     private fun addItemByDesignPatternModel(model: DesignPatternModel) {
+        UIManager.put("Button.select", Color.gray)
         val button = JButton(model.title)
         button.ui = MetalButtonUI()
         button.border = BorderFactory.createEmptyBorder()

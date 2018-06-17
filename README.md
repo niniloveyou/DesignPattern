@@ -1,7 +1,7 @@
 # DesignPattern
 a IDE plugin
 
-DesignPatternAction
+actions.DesignPatternAction
 -> DesignPatternJFrame
 -> DesignPatternHandlerFactory
 -> handler.handle

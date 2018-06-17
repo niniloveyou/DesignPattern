@@ -25,15 +25,19 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
   </extensions>
 
   <actions>
     <!-- Add your actions here -->
-    <action id="DesignPatternAction" class="DesignPatternAction" text="DesignPattern"
+    <action id="actions.DesignPatternAction" class="actions.DesignPatternAction" text="DesignPattern"
             description="Generate framework code based on design patterns">
       <add-to-group group-id="GenerateGroup" anchor="last"/>
-      <keyboard-shortcut keymap="$default" first-keystroke="alt s"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="alt p"/>
+    </action>
+    <action id="DesignPatternFolderAction" class="actions.DesignPatternFolderAction" text="New DesignPattern Class"
+            description="generate framework code based on design patterns">
+      <add-to-group group-id="FileOpenGroup" anchor="first"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="alt v"/>
     </action>
   </actions>
 

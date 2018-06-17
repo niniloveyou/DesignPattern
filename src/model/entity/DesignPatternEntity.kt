@@ -1,6 +1,6 @@
 package model.entity
 
-import model.CodeType
+import code.SingletonType
 
 /**
  * @author deadline
@@ -12,3 +12,7 @@ open class BaseEntity {
 
     lateinit var packageName: String
 }
+
+class SingletonEntity(val type: SingletonType) : BaseEntity()
+
+class BuilderEntity() : BaseEntity()

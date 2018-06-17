@@ -1,3 +1,5 @@
+package actions
+
 import com.intellij.codeInsight.CodeInsightActionHandler
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction
 import com.intellij.openapi.actionSystem.AnActionEvent

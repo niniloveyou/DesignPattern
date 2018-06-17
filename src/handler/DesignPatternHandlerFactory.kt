@@ -17,8 +17,8 @@ class DesignPatternHandlerFactory {
         fun generateHandler(model: DesignPatternModel) : IDesignPatternHandler {
             return when(model.patternEnum) {
                 DesignPatternEnum.Singleton -> SingletonHandler(true, true)
-                DesignPatternEnum.Bridge -> SingletonHandler(true, true)
-                DesignPatternEnum.Builder -> SingletonHandler(true, true)
+                DesignPatternEnum.Builder -> BuilderHandler(true, true)
+                DesignPatternEnum.Bridge -> BuilderHandler(true, true)
                 DesignPatternEnum.Strategy -> SingletonHandler(true, true)
                 DesignPatternEnum.Adapter -> SingletonHandler(true, true)
                 DesignPatternEnum.Factory -> SingletonHandler(true, true)
