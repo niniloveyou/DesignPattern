@@ -2,14 +2,12 @@ import callback.CodeWriterCallback
 import callback.ProgressCodeWriterCallback
 import code.ICodeGenerate
 import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.ui.MessageType
 import com.intellij.psi.codeStyle.CodeStyleManager
 import model.*
 import model.entity.BaseEntity
 import ui.Toast
-import java.io.File
+import utils.Utils
 
 /**
  * @author deadline
@@ -36,7 +34,6 @@ object DesignPatternCodeWriter {
     }
 
     private fun writeFile(actionModel: ActionModel, list: List<CodeFile>){
-        var tempFile: File
         for (i in list.indices) {
             val item = list[i]
             val fileType = if (item.codeType == CodeType.Java) JavaFileType() else KotlinFileType()
@@ -53,9 +50,11 @@ object DesignPatternCodeWriter {
 
             actionModel.psiDirectory!!.add(psiFile)
 
+            // 格式化代码
+            CodeStyleManager.getInstance(actionModel.project).reformat(psiFile)
+
              // 用编辑器打开指定文件
-           /* FileEditorManager.getInstance(actionModel.project)
-                    .openTextEditor(OpenFileDescriptor(actionModel.project, psiFile.virtualFile), true)*/
+            Utils.openFileInPanel(actionModel.psiDirectory!!.virtualFile.path + "/" + item.file.typeSpec!!.name + fileType.defaultExtension, actionModel.project)
         }
     }
 }

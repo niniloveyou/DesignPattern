@@ -19,7 +19,7 @@ class DesignPatternHandlerFactory {
                 DesignPatternEnum.Factory -> FactoryHandler(true, true)
                 DesignPatternEnum.Singleton -> SingletonHandler(true, true)
                 DesignPatternEnum.Builder -> BuilderHandler(true, true)
-                DesignPatternEnum.Prototype -> PrototypeHandler(true, true)
+                DesignPatternEnum.Prototype -> PrototypeHandler(false, true)
                 DesignPatternEnum.Adapter -> AdapterHandler(true, true)
 
                 DesignPatternEnum.Decorator -> SingletonHandler(true, true)

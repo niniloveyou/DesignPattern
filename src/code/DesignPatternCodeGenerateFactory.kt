@@ -19,7 +19,12 @@ class DesignPatternCodeGenerateFactory {
         fun <T: BaseEntity> generateCodeGenerate(
                 model: DesignPatternModel, entity: T): ICodeGenerate<T> {
            when(model.patternEnum) {
-                DesignPatternEnum.Singleton -> {
+
+               DesignPatternEnum.Factory -> {
+
+               }
+
+               DesignPatternEnum.Singleton -> {
                     val singleton = entity as SingletonEntity
                     return if (singleton.type == SingletonType.Hungry) {
                         SingletonHungryGenerate() as ICodeGenerate<T>
@@ -31,7 +36,12 @@ class DesignPatternCodeGenerateFactory {
                DesignPatternEnum.Builder -> {
                     return BuilderGenerate() as ICodeGenerate<T>
                }
-            }
+
+               DesignPatternEnum.Prototype -> {
+
+               }
+
+           }
             throw IllegalArgumentException("unknown design pattern !!!")
         }
     }
