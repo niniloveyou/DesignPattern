@@ -23,16 +23,9 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
     private lateinit var actionModel: ActionModel
 
     init {
-        supportPatternEnums.add(DesignPatternEnum.Singleton)
-        supportPatternEnums.add(DesignPatternEnum.Builder)
-        supportPatternEnums.add(DesignPatternEnum.Factory)
-        supportPatternEnums.add(DesignPatternEnum.Strategy)
-        supportPatternEnums.add(DesignPatternEnum.Adapter)
-        supportPatternEnums.add(DesignPatternEnum.Chain)
-        supportPatternEnums.add(DesignPatternEnum.Bridge)
-
+        supportPatternEnums.addAll(DesignPatternEnum.values())
         for ((index, item) in supportPatternEnums.withIndex()) {
-            val model = DesignPatternModel(item, Utils.getNameByDesignPattern(item), index)
+            val model = DesignPatternModel(item, item.title, index)
             supportPatternModels.add(model)
             generateGridLayout()
             addItemByDesignPatternModel(model)
@@ -43,7 +36,7 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
      * 创建GridLayout
      */
     private fun generateGridLayout() {
-        gridLayout = GridLayout(supportPatternModels.size, 1)
+        gridLayout = GridLayout(supportPatternModels.size / 2, 2)
         layout = gridLayout
     }
 

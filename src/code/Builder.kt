@@ -1,5 +1,8 @@
 package code
 
+import com.intellij.lang.jvm.JvmModifier
+import com.intellij.psi.PsiField
+import com.intellij.psi.PsiModifier
 import com.squareup.javapoet.*
 import model.ActionModel
 import model.CodeFile
@@ -10,9 +13,45 @@ import javax.lang.model.element.Modifier
  * @author deadline
  * @time 2018/6/15
  */
-class BuilderGenerate(): ICodeGenerate<BuilderEntity>{
+class BuilderGenerate(): ICodeGenerate<BuilderEntity> {
 
     override fun generateCode(entity: BuilderEntity, actionModel: ActionModel) {
+
+        val className = actionModel.psiClass.nameIdentifier!!.text
+        // 修改类的修饰符
+        // 修改字段的修饰符，筛选修饰符
+        // 修改构造函数修饰符
+        // 添加get方法添加newBuilder方法
+        // 创建内部builder类
+        //
+
+        val fields = actionModel.psiClass.allFields
+        var targetFields = ArrayList<PsiField>()
+        for (item in fields) {
+            if (!item.hasModifier(JvmModifier.STATIC)
+                    && !(item.hasModifier(JvmModifier.ABSTRACT))){
+                //item.modifierList.
+                targetFields.add(item)
+            }
+        }
+
+
+        val instanceField = "private static $className instance = new $className();"
+        val field = actionModel.psiElementFactory.createFieldFromText(instanceField, actionModel.psiClass)
+        actionModel.psiClass.add(field)
+
+        val constructor = actionModel.psiElementFactory.createConstructor()
+        constructor.modifierList.setModifierProperty(PsiModifier.PRIVATE, true)
+        actionModel.psiClass.add(constructor)
+
+        val methodText = "public static " + className + " getInstance() {\n" +
+                "        return instance ;\n"+
+                "    }"
+
+        val psiMethod = actionModel.psiElementFactory.createMethodFromText(methodText, actionModel.psiClass)
+        actionModel.psiClass.add(psiMethod)
+
+
 
     }
 
@@ -101,5 +140,4 @@ class BuilderGenerate(): ICodeGenerate<BuilderEntity>{
 
         return arrayListOf(CodeFile(javaFile, entity.packageName))
     }
-
 }

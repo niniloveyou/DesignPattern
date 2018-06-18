@@ -8,6 +8,7 @@ import model.ActionModel
 import model.ActionType
 import model.DesignPatternModel
 import model.entity.SingletonEntity
+import utils.PsiUtils
 import utils.Utils
 
 
@@ -24,7 +25,7 @@ class SingletonHandler(private val supportCreate: Boolean,
        // Messages.showInputDialog(actionModel.project, "What is your name?", "Input your name", Messages.getQuestionIcon())
         // do set message
         val entity = SingletonEntity(SingletonType.Lazy)
-         entity.packageName = Utils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
+         entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
          entity.className = "FunctionMenuManager"
 
          DesignPatternCodeWriter.write(actionModel, model, entity, ActionType.Update,

@@ -6,6 +6,7 @@ import model.DesignPatternModel
 import utils.Utils
 import model.entity.BuilderEntity
 import model.ActionType
+import utils.PsiUtils
 
 /**
  * @author deadline
@@ -17,7 +18,7 @@ class BuilderHandler(private val supportCreate: Boolean,
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
         val entity = BuilderEntity()
-        entity.packageName = Utils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
+        entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
         entity.className = "ClassConfig"
 
         DesignPatternCodeWriter.write(

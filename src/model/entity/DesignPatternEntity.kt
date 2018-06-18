@@ -1,6 +1,7 @@
 package model.entity
 
 import code.SingletonType
+import com.intellij.psi.PsiField
 
 /**
  * @author deadline
@@ -13,6 +14,18 @@ open class BaseEntity {
     lateinit var packageName: String
 }
 
+/**
+ * 单例
+ */
 class SingletonEntity(val type: SingletonType) : BaseEntity()
 
-class BuilderEntity() : BaseEntity()
+/**
+ * builder
+ */
+class BuilderEntity() : BaseEntity() {
+    lateinit var fields: List<PsiField>
+}
+
+class AdapterEntity() : BaseEntity()
+
+class FactoryEntity() : BaseEntity()
