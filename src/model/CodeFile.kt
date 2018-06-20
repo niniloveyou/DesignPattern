@@ -9,6 +9,4 @@ import model.CodeType
  */
 data class CodeFile(val file: JavaFile,
                     val packageName: String,
-                    val codeType: CodeType = CodeType.Java) {
-
-}
+                    val codeType: CodeType = CodeType.Java)

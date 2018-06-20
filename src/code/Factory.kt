@@ -10,14 +10,12 @@ import javax.lang.model.element.Modifier
  * @author deadline
  * @time 2018/6/18
  */
-enum class FactoryType{
+enum class FactoryType {
     Factory,
     AbstractFactory
 }
 
-class FactoryGenerate(): ICodeGenerate<FactoryEntity> {
-    override fun generateCode(entity: FactoryEntity, actionModel: ActionModel) {
-    }
+class FactoryGenerate : BaseCodeGenerate<FactoryEntity>() {
 
     override fun generateFile(entity: FactoryEntity): List<CodeFile> {
         val builderClassName = "Builder"

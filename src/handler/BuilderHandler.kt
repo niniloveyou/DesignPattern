@@ -12,9 +12,7 @@ import utils.PsiUtils
  * @author deadline
  * @time 2018/6/15
  */
-class BuilderHandler(private val supportCreate: Boolean,
-                     private val supportUpdate: Boolean)
-    : BaseHandler(supportCreate, supportUpdate)  {
+class BuilderHandler : BaseHandler() {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
         val entity = BuilderEntity()

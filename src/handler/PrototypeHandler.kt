@@ -9,9 +9,7 @@ import model.DesignPatternModel
  * https://blog.csdn.net/zhengzhb/article/details/7393528
  * 深浅拷贝
  */
-class PrototypeHandler (private val supportCreate: Boolean,
-                        private val supportUpdate: Boolean)
-    : BaseHandler(supportCreate, supportUpdate) {
+class PrototypeHandler : BaseHandler() {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
 

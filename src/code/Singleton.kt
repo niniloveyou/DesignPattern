@@ -18,7 +18,7 @@ enum class SingletonType {
     Lazy
 }
 
-class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity> {
+class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
 
     override fun generateFile(entity: SingletonEntity): List<CodeFile> {
         val thisType = ClassName.get(entity.packageName, entity.className)
@@ -75,7 +75,7 @@ class SingletonHungryGenerate(): ICodeGenerate<SingletonEntity> {
     }
 }
 
-class SingletonLazyGenerate(): ICodeGenerate<SingletonEntity> {
+class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
 
     override fun generateFile(entity: SingletonEntity): List<CodeFile> {
         val thisType = ClassName.get(entity.packageName, entity.className)

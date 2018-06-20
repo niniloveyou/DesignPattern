@@ -18,11 +18,11 @@ import java.awt.Dimension
 import javax.swing.WindowConstants
 
 
-class DesignPatternAction : BaseGenerateAction {
+class DesignPatternFolderAction : BaseGenerateAction {
 
-    private var actionHelper: ActionHelper = object : ActionHelper(ActionType.Update) {
+    private var actionHelper: ActionHelper = object : ActionHelper(ActionType.Create) {
         override fun getTargetClass(editor: Editor, file: PsiFile): PsiClass? {
-            return this@DesignPatternAction.getTargetClass(editor, file)
+            return this@DesignPatternFolderAction.getTargetClass(editor, file)
         }
     }
 

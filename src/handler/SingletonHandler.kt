@@ -17,9 +17,7 @@ import utils.Utils
  * @author deadline
  * @time 2018/5/11
  */
-class SingletonHandler(private val supportCreate: Boolean,
-                       private val supportUpdate: Boolean)
-                        : BaseHandler(supportCreate, supportUpdate) {
+class SingletonHandler : BaseHandler() {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
        // Messages.showInputDialog(actionModel.project, "What is your name?", "Input your name", Messages.getQuestionIcon())

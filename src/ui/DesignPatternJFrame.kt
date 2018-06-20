@@ -2,6 +2,7 @@ package ui
 
 import handler.DesignPatternHandlerFactory
 import model.ActionModel
+import model.ActionType
 import model.DesignPatternEnum
 import model.DesignPatternModel
 import utils.Utils
@@ -15,7 +16,7 @@ import javax.swing.plaf.metal.MetalButtonUI
  * @author deadline
  * 设计模式选择页面
  */
-class DesignPatternJFrame(title: String?) : JFrame(title) {
+class DesignPatternJFrame(title: String?, actionType: ActionType) : JFrame(title) {
 
     private val supportPatternEnums = LinkedHashSet<DesignPatternEnum>()
     private val supportPatternModels = ArrayList<DesignPatternModel>()
@@ -25,18 +26,22 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
     init {
         supportPatternEnums.addAll(DesignPatternEnum.values())
         for ((index, item) in supportPatternEnums.withIndex()) {
-            val model = DesignPatternModel(item, item.title, index)
-            supportPatternModels.add(model)
-            generateGridLayout()
-            addItemByDesignPatternModel(model)
+            if (actionType == ActionType.Update && item.supportUpdate
+                    || actionType == ActionType.Create && item.supportCreate) {
+                val model = DesignPatternModel(item, item.title, index)
+                supportPatternModels.add(model)
+                addItemByDesignPatternModel(model)
+            }
         }
+        generateGridLayout()
+
     }
 
     /**
      * 创建GridLayout
      */
     private fun generateGridLayout() {
-        gridLayout = GridLayout(supportPatternModels.size / 2, 2)
+        gridLayout = GridLayout(supportPatternModels.size / 3, 3)
         layout = gridLayout
     }
 
@@ -63,10 +68,16 @@ class DesignPatternJFrame(title: String?) : JFrame(title) {
         handler.handle(actionModel, model)
     }
 
+    /**
+     * 更新数据源
+     */
     fun updateActionModel(actionModel: ActionModel) {
         this.actionModel = actionModel
     }
 
+    /**
+     * 关闭
+     */
     private fun closeJFrame() {
         isVisible = false
         dispose()

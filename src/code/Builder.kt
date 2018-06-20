@@ -13,7 +13,7 @@ import javax.lang.model.element.Modifier
  * @author deadline
  * @time 2018/6/15
  */
-class BuilderGenerate(): ICodeGenerate<BuilderEntity> {
+class BuilderGenerate : BaseCodeGenerate<BuilderEntity>() {
 
     override fun generateCode(entity: BuilderEntity, actionModel: ActionModel) {
 

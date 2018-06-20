@@ -1,5 +1,6 @@
 package model.entity
 
+import code.FactoryType
 import code.SingletonType
 import com.intellij.psi.PsiField
 
@@ -28,4 +29,4 @@ class BuilderEntity() : BaseEntity() {
 
 class AdapterEntity() : BaseEntity()
 
-class FactoryEntity() : BaseEntity()
+class FactoryEntity(val type: FactoryType) : BaseEntity()

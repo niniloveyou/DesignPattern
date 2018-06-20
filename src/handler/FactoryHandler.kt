@@ -1,6 +1,7 @@
 package handler
 
 import code.DesignPatternCodeGenerateFactory
+import code.FactoryType
 import model.ActionModel
 import model.DesignPatternModel
 import utils.PsiUtils
@@ -11,12 +12,10 @@ import model.entity.FactoryEntity
  * @author deadline
  * @time 2018/6/18
  */
-class FactoryHandler (private val supportCreate: Boolean,
-                      private val supportUpdate: Boolean)
-    : BaseHandler(supportCreate, supportUpdate) {
+class FactoryHandler : BaseHandler() {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
-        val entity = FactoryEntity()
+        val entity = FactoryEntity(FactoryType.Factory)
         entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
         entity.className = "XxFactory"
 
