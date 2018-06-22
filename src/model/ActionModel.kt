@@ -16,16 +16,16 @@ data class ActionModel(
 
                        val editor: Editor,
 
-                       // current operate file
+                       // current operate javaFile
                        val psiFile: PsiFile,
 
-                       // current psi class file
+                       // current psi class javaFile
                        val psiClass: PsiClass,
 
                        // element factory modify current class
                        val psiElementFactory: PsiElementFactory,
 
-                       // used to create new file(java/kotlin)
+                       // used to create new javaFile(java/kotlin)
                        val psiFileFactory: PsiFileFactory,
 
                        // create directory

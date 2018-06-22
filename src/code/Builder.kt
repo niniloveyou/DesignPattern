@@ -15,7 +15,7 @@ import javax.lang.model.element.Modifier
  */
 class BuilderGenerate : BaseCodeGenerate<BuilderEntity>() {
 
-    override fun generateCode(entity: BuilderEntity, actionModel: ActionModel) {
+    override fun generateJavaCode(entity: BuilderEntity, actionModel: ActionModel) {
 
         val className = actionModel.psiClass.nameIdentifier!!.text
         // 修改类的修饰符
@@ -55,7 +55,7 @@ class BuilderGenerate : BaseCodeGenerate<BuilderEntity>() {
 
     }
 
-    override fun generateFile(entity: BuilderEntity): List<CodeFile> {
+    override fun generateJavaFile(entity: BuilderEntity): List<CodeFile> {
         val builderClassName = "Builder"
         val exampleFieldName = "number"
         val thisType = ClassName.get(entity.packageName, entity.className)
@@ -138,6 +138,10 @@ class BuilderGenerate : BaseCodeGenerate<BuilderEntity>() {
                 .builder(entity.packageName, classSpec)
                 .build()
 
-        return arrayListOf(CodeFile(javaFile, entity.packageName))
+        return arrayListOf(CodeFile(entity.packageName, javaFile))
+    }
+
+    override fun generateKotlinFile(entity: BuilderEntity): List<CodeFile> {
+        return super.generateKotlinFile(entity)
     }
 }

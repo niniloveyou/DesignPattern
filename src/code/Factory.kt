@@ -16,8 +16,11 @@ enum class FactoryType {
 }
 
 class FactoryGenerate : BaseCodeGenerate<FactoryEntity>() {
+    override fun generateKotlinFile(entity: FactoryEntity): List<CodeFile> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override fun generateFile(entity: FactoryEntity): List<CodeFile> {
+    override fun generateJavaFile(entity: FactoryEntity): List<CodeFile> {
         val builderClassName = "Builder"
         val exampleFieldName = "number"
         val thisType = ClassName.get(entity.packageName, entity.className)
@@ -100,17 +103,21 @@ class FactoryGenerate : BaseCodeGenerate<FactoryEntity>() {
                 .builder(entity.packageName, classSpec)
                 .build()
 
-        return arrayListOf(CodeFile(javaFile, entity.packageName))
+        return arrayListOf(CodeFile(entity.packageName, javaFile))
     }
 
 }
 
 class AbstractFactoryGenerate(): ICodeGenerate<FactoryEntity> {
-    override fun generateCode(entity: FactoryEntity, actionModel: ActionModel) {
+    override fun generateKotlinFile(entity: FactoryEntity): List<CodeFile> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun generateFile(entity: FactoryEntity): List<CodeFile> {
+    override fun generateJavaCode(entity: FactoryEntity, actionModel: ActionModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun generateJavaFile(entity: FactoryEntity): List<CodeFile> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

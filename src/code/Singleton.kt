@@ -19,8 +19,11 @@ enum class SingletonType {
 }
 
 class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
+    override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override fun generateFile(entity: SingletonEntity): List<CodeFile> {
+    override fun generateJavaFile(entity: SingletonEntity): List<CodeFile> {
         val thisType = ClassName.get(entity.packageName, entity.className)
 
         val fieldSpec = FieldSpec.builder(thisType, "instance", Modifier.PRIVATE, Modifier.STATIC)
@@ -52,10 +55,10 @@ class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
                 .builder(entity.packageName, classSpec)
                 .build()
 
-        return arrayListOf(CodeFile(javaFile, entity.packageName))
+        return arrayListOf(CodeFile(entity.packageName, javaFile))
     }
 
-    override fun generateCode(entity: SingletonEntity, actionModel: ActionModel) {
+    override fun generateJavaCode(entity: SingletonEntity, actionModel: ActionModel) {
         val className = actionModel.psiClass.nameIdentifier!!.text
 
         val instanceField = "private static $className instance = new $className();"
@@ -76,8 +79,11 @@ class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
 }
 
 class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
+    override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override fun generateFile(entity: SingletonEntity): List<CodeFile> {
+    override fun generateJavaFile(entity: SingletonEntity): List<CodeFile> {
         val thisType = ClassName.get(entity.packageName, entity.className)
 
         val fieldSpec = FieldSpec.builder(thisType, "instance", Modifier.PRIVATE, Modifier.STATIC, Modifier.VOLATILE)
@@ -118,10 +124,10 @@ class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
                 .builder(entity.packageName, classSpec)
                 .build()
 
-        return arrayListOf(CodeFile(javaFile, entity.packageName))
+        return arrayListOf(CodeFile(entity.packageName, javaFile))
     }
 
-    override fun generateCode(entity: SingletonEntity, actionModel: ActionModel) {
+    override fun generateJavaCode(entity: SingletonEntity, actionModel: ActionModel) {
         val className = actionModel.psiClass.nameIdentifier!!.text
 
         val instanceField = "private static volatile $className instance = null;"

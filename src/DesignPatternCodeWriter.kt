@@ -19,16 +19,19 @@ object DesignPatternCodeWriter {
                               model: DesignPatternModel,
                               entity: T,
                               actionType: ActionType,
+                              codeType: CodeType,
                               generate: ICodeGenerate<T>,
                               callback: CodeWriterCallback = ProgressCodeWriterCallback()) {
 
         WriteCommandAction.runWriteCommandAction(actionModel.project,
                 Runnable {
                     if (actionType == ActionType.Update) {
-                        generate.generateCode(entity, actionModel)
+                        generate.generateJavaCode(entity, actionModel)
                         CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass)
-                    } else {
-                        writeFile(actionModel, generate.generateFile(entity))
+                    } else if (codeType == CodeType.Java){
+                        writeFile(actionModel, generate.generateJavaFile(entity))
+                    } else if (codeType == CodeType.Kotlin) {
+                        writeFile(actionModel, generate.generateKotlinFile(entity))
                     }
                 })
     }
@@ -37,11 +40,9 @@ object DesignPatternCodeWriter {
         for (i in list.indices) {
             val item = list[i]
             val fileType = if (item.codeType == CodeType.Java) JavaFileType() else KotlinFileType()
-
-            val psiFile = actionModel.psiFileFactory.createFileFromText(
-                    item.file.typeSpec!!.name + fileType.defaultExtension,
-                    fileType,
-                    item.file.toString())
+            val fileName = if (item.codeType == CodeType.Java) item.javaFile?.typeSpec?.name else item.kotlinFile?.name + fileType.defaultExtension
+            val classContent = if (item.codeType == CodeType.Java) item.javaFile.toString() else item.kotlinFile.toString()
+            val psiFile = actionModel.psiFileFactory.createFileFromText(fileName!!, fileType, classContent)
 
             if (actionModel.psiDirectory == null) {
                 Toast.make(actionModel.project, MessageType.ERROR, "can not find directory!!!")
@@ -54,7 +55,7 @@ object DesignPatternCodeWriter {
             CodeStyleManager.getInstance(actionModel.project).reformat(psiFile)
 
              // 用编辑器打开指定文件
-            Utils.openFileInPanel(actionModel.psiDirectory!!.virtualFile.path + "/" + item.file.typeSpec!!.name + fileType.defaultExtension, actionModel.project)
+            Utils.openFileInPanel(actionModel.psiDirectory!!.virtualFile.path + "/" + fileName, actionModel.project)
         }
     }
 }

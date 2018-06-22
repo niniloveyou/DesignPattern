@@ -3,9 +3,8 @@ package handler
 import code.DesignPatternCodeGenerateFactory
 import model.ActionModel
 import model.DesignPatternModel
-import utils.Utils
 import model.entity.BuilderEntity
-import model.ActionType
+import model.*
 import utils.PsiUtils
 
 /**
@@ -24,6 +23,7 @@ class BuilderHandler : BaseHandler() {
                 model,
                 entity,
                 ActionType.Create,
+                CodeType.Java,
                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity)
         )
     }

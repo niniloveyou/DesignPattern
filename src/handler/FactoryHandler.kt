@@ -5,7 +5,7 @@ import code.FactoryType
 import model.ActionModel
 import model.DesignPatternModel
 import utils.PsiUtils
-import model.ActionType
+import model.*
 import model.entity.FactoryEntity
 
 /**
@@ -24,6 +24,7 @@ class FactoryHandler : BaseHandler() {
                 model,
                 entity,
                 ActionType.Create,
+                CodeType.Java,
                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity))
     }
 

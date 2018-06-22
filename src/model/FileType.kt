@@ -23,12 +23,12 @@ class KotlinFileType : FileType {
     }
 
     override fun getName(): String {
-        return "Kotlin file"
+        return "Kotlin javaFile"
 
     }
 
     override fun getDescription(): String {
-        return "Kotlin source file"
+        return "Kotlin source javaFile"
 
     }
 
@@ -57,12 +57,12 @@ class JavaFileType : FileType {
     }
 
     override fun getName(): String {
-        return "Java file"
+        return "Java javaFile"
 
     }
 
     override fun getDescription(): String {
-        return "Java source file"
+        return "Java source javaFile"
 
     }
 

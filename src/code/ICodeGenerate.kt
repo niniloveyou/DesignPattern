@@ -1,7 +1,5 @@
 package code
 
-import com.squareup.javapoet.JavaFile
-import groovy.lang.Tuple2
 import model.ActionModel
 import model.CodeFile
 import model.entity.BaseEntity
@@ -12,9 +10,12 @@ import model.entity.BaseEntity
  */
 interface ICodeGenerate<T: BaseEntity> {
 
-    /** 在当前文件直接修改 **/
-    fun generateCode(entity: T, actionModel: ActionModel)
+    /** 在当前文件直接修改java 代码 **/
+    fun generateJavaCode(entity: T, actionModel: ActionModel)
 
     /** 生成新的java 文件 **/
-    fun generateFile(entity: T): List<CodeFile>
+    fun generateJavaFile(entity: T): List<CodeFile>
+
+    /** 生成新的kotlin 文件 **/
+    fun generateKotlinFile(entity: T): List<CodeFile>
 }

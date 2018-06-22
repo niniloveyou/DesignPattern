@@ -1,15 +1,13 @@
 package handler
 
-import callback.ProgressCodeWriterCallback
 import code.DesignPatternCodeGenerateFactory
 import code.SingletonType
-import com.intellij.openapi.ui.Messages
 import model.ActionModel
 import model.ActionType
+import model.CodeType
 import model.DesignPatternModel
 import model.entity.SingletonEntity
 import utils.PsiUtils
-import utils.Utils
 
 
 /**
@@ -26,8 +24,8 @@ class SingletonHandler : BaseHandler() {
          entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
          entity.className = "FunctionMenuManager"
 
-         DesignPatternCodeWriter.write(actionModel, model, entity, ActionType.Update,
-                DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity))
+         DesignPatternCodeWriter.write(actionModel, model, entity, ActionType.Update, CodeType.Java,
+                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity))
     }
 
     private fun generateJFrame() {
