@@ -20,14 +20,10 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable instance="setting.DesignPatternSettings" />
-    <codeInsight.lineMarkerProvider language="JAVA"
-                                    implementationClass="setting.DesignPatternMarkProvider" />
   </extensions>
 
   <actions>
@@ -35,12 +31,12 @@
     <action id="actions.DesignPatternAction" class="actions.DesignPatternAction" text="DesignPattern"
             description="Generate framework code based on design patterns">
       <add-to-group group-id="GenerateGroup" anchor="last"/>
-      <keyboard-shortcut keymap="$default" first-keystroke="alt p"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="alt p" replace-all="true"/>
     </action>
-    <action id="DesignPatternFolderAction" class="actions.DesignPatternFolderAction" text="New DesignPattern Class"
+    <action id="actions.DesignPatternNewFileAction" class="actions.DesignPatternNewFileAction" text="DesignPattern"
             description="generate framework code based on design patterns">
-      <add-to-group group-id="FileOpenGroup" anchor="first"/>
-      <keyboard-shortcut keymap="$default" first-keystroke="alt v"/>
+      <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="alt v" replace-all="true"/>
     </action>
   </actions>
 

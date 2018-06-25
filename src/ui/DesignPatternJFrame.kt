@@ -18,14 +18,12 @@ import javax.swing.plaf.metal.MetalButtonUI
  */
 class DesignPatternJFrame(title: String?, actionType: ActionType) : JFrame(title) {
 
-    private val supportPatternEnums = LinkedHashSet<DesignPatternEnum>()
     private val supportPatternModels = ArrayList<DesignPatternModel>()
     private var gridLayout: GridLayout? = null
     private lateinit var actionModel: ActionModel
 
     init {
-        supportPatternEnums.addAll(DesignPatternEnum.values())
-        for ((index, item) in supportPatternEnums.withIndex()) {
+        for ((index, item) in DesignPatternEnum.values().withIndex()) {
             if (actionType == ActionType.Update && item.supportUpdate
                     || actionType == ActionType.Create && item.supportCreate) {
                 val model = DesignPatternModel(item, item.title, index)

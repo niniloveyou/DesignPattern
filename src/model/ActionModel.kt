@@ -14,13 +14,13 @@ data class ActionModel(
                        // current project
                        val project: Project,
 
-                       val editor: Editor,
+                       val editor: Editor?,
 
                        // current operate javaFile
-                       val psiFile: PsiFile,
+                       val psiFile: PsiFile?,
 
                        // current psi class javaFile
-                       val psiClass: PsiClass,
+                       val psiClass: PsiClass?,
 
                        // element factory modify current class
                        val psiElementFactory: PsiElementFactory,
@@ -32,4 +32,6 @@ data class ActionModel(
                        val psiDirectoryFactory: PsiDirectoryFactory,
 
                        // use to add psiFile to directory
-                       var psiDirectory: PsiDirectory?)
+                       var psiDirectory: PsiDirectory?,
+
+                       val actionType: ActionType)

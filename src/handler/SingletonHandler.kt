@@ -1,13 +1,15 @@
 package handler
 
-import code.DesignPatternCodeGenerateFactory
 import code.SingletonType
+import com.intellij.openapi.ui.DialogBuilder
 import model.ActionModel
 import model.ActionType
-import model.CodeType
 import model.DesignPatternModel
 import model.entity.SingletonEntity
-import utils.PsiUtils
+import ui.DesignPatternJFrame
+import utils.Utils
+import javax.swing.JButton
+import javax.swing.JPanel
 
 
 /**
@@ -18,22 +20,21 @@ import utils.PsiUtils
 class SingletonHandler : BaseHandler() {
 
     override fun handle(actionModel: ActionModel, model: DesignPatternModel) {
-       // Messages.showInputDialog(actionModel.project, "What is your name?", "Input your name", Messages.getQuestionIcon())
-        // do set message
-        val entity = SingletonEntity(SingletonType.Lazy)
-         entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
-         entity.className = "FunctionMenuManager"
 
-         DesignPatternCodeWriter.write(actionModel, model, entity, ActionType.Update, CodeType.Java,
-                 DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity))
-    }
+        var entity: SingletonEntity? = null
+        if (actionModel.actionType == ActionType.Update) {
+            val mode = Utils.showChooseDialog(arrayOf(SingletonType.Lazy, SingletonType.Hungry))
+            entity = SingletonEntity(mode)
+        } else {
+            //val mode = Utils.showChooseDialog(arrayOf(SingletonType.Lazy, SingletonType.Hungry))
+            entity = SingletonEntity(SingletonType.Lazy)
+            var builder = DialogBuilder()
+            var panel = JPanel()
+            panel.add(JButton("fdsfd"))
+            builder.setCenterPanel(panel)
+            builder.show()
+        }
 
-    private fun generateJFrame() {
-
-    }
-
-    private fun onConfirmClick() {
-
-
+        DesignPatternCodeWriter.write(actionModel, model, entity)
     }
 }

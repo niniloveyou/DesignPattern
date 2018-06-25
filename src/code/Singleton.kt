@@ -6,8 +6,10 @@ import utils.Space
 import javax.lang.model.element.Modifier
 import model.ActionModel
 import com.intellij.psi.PsiModifier
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.KModifier
 import model.CodeFile
-
+import com.squareup.kotlinpoet.TypeSpec as KotlinTypeSpec
 
 /**
  * @author deadline
@@ -20,7 +22,12 @@ enum class SingletonType {
 
 class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
     override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val thisType = ClassName.get(entity.packageName, entity.className)
+        val classSpec = KotlinTypeSpec.classBuilder(entity.className!!)
+                .build()
+
+        val fileSpec = FileSpec.builder(entity.packageName, entity.className!!).build()
+        return arrayListOf(CodeFile(entity.packageName, fileSpec))
     }
 
     override fun generateJavaFile(entity: SingletonEntity): List<CodeFile> {
@@ -59,7 +66,7 @@ class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
     }
 
     override fun generateJavaCode(entity: SingletonEntity, actionModel: ActionModel) {
-        val className = actionModel.psiClass.nameIdentifier!!.text
+        val className = actionModel.psiClass?.nameIdentifier!!.text
 
         val instanceField = "private static $className instance = new $className();"
         val field = actionModel.psiElementFactory.createFieldFromText(instanceField, actionModel.psiClass)
@@ -103,7 +110,7 @@ class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
                 "      }\n" +
                 "  }\n" +
                 "\n" +
-                "return instance; + \n"
+                "return instance; \n"
         // 创建方法
         val methodSpec = MethodSpec.methodBuilder("getInstance")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
@@ -128,7 +135,7 @@ class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
     }
 
     override fun generateJavaCode(entity: SingletonEntity, actionModel: ActionModel) {
-        val className = actionModel.psiClass.nameIdentifier!!.text
+        val className = actionModel.psiClass?.nameIdentifier!!.text
 
         val instanceField = "private static volatile $className instance = null;"
         val field = actionModel.psiElementFactory.createFieldFromText(instanceField, actionModel.psiClass)

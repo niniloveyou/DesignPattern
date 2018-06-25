@@ -10,7 +10,7 @@ import com.intellij.psi.PsiField
  */
 open class BaseEntity {
 
-    lateinit var className: String
+    var className: String? = null
 
     lateinit var packageName: String
 }

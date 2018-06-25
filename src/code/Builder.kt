@@ -17,7 +17,7 @@ class BuilderGenerate : BaseCodeGenerate<BuilderEntity>() {
 
     override fun generateJavaCode(entity: BuilderEntity, actionModel: ActionModel) {
 
-        val className = actionModel.psiClass.nameIdentifier!!.text
+        val className = actionModel.psiClass?.nameIdentifier!!.text
         // 修改类的修饰符
         // 修改字段的修饰符，筛选修饰符
         // 修改构造函数修饰符

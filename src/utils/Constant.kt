@@ -7,3 +7,7 @@ package utils
 
 const val Space = " "
 const val Tab = "    "
+
+const val Default_Language_Key = "Default_Language_Key"
+const val Default_Language_Java = 1
+const val Default_Language_Kotlin = 2

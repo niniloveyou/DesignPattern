@@ -1,7 +1,6 @@
 package callback
 
 import com.sun.deploy.ui.ProgressDialog
-import ui.Toast
 
 /**
  * @author deadline

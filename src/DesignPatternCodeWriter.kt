@@ -1,12 +1,12 @@
 import callback.CodeWriterCallback
 import callback.ProgressCodeWriterCallback
-import code.ICodeGenerate
+import code.DesignPatternCodeGenerateFactory
 import com.intellij.openapi.command.WriteCommandAction
-import com.intellij.openapi.ui.MessageType
+import com.intellij.openapi.ui.Messages
 import com.intellij.psi.codeStyle.CodeStyleManager
 import model.*
 import model.entity.BaseEntity
-import ui.Toast
+import utils.PsiUtils
 import utils.Utils
 
 /**
@@ -18,19 +18,25 @@ object DesignPatternCodeWriter {
     fun <T: BaseEntity> write(actionModel: ActionModel,
                               model: DesignPatternModel,
                               entity: T,
-                              actionType: ActionType,
-                              codeType: CodeType,
-                              generate: ICodeGenerate<T>,
                               callback: CodeWriterCallback = ProgressCodeWriterCallback()) {
 
         WriteCommandAction.runWriteCommandAction(actionModel.project,
                 Runnable {
-                    if (actionType == ActionType.Update) {
+                    entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
+                    val codeType = Utils.getDefaultCodeType()
+                    val generate = DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity)
+                    if (actionModel.actionType == ActionType.Update) {
                         generate.generateJavaCode(entity, actionModel)
-                        CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass)
+                        CodeStyleManager.getInstance(actionModel.project).reformat(actionModel.psiClass!!)
                     } else if (codeType == CodeType.Java){
+                        if (entity.className.isNullOrEmpty()) {
+                            return@Runnable
+                        }
                         writeFile(actionModel, generate.generateJavaFile(entity))
                     } else if (codeType == CodeType.Kotlin) {
+                        if (entity.className.isNullOrEmpty()) {
+                            return@Runnable
+                        }
                         writeFile(actionModel, generate.generateKotlinFile(entity))
                     }
                 })
@@ -40,12 +46,12 @@ object DesignPatternCodeWriter {
         for (i in list.indices) {
             val item = list[i]
             val fileType = if (item.codeType == CodeType.Java) JavaFileType() else KotlinFileType()
-            val fileName = if (item.codeType == CodeType.Java) item.javaFile?.typeSpec?.name else item.kotlinFile?.name + fileType.defaultExtension
+            val fileName = if (item.codeType == CodeType.Java) item.javaFile?.typeSpec?.name + fileType.defaultExtension else item.kotlinFile?.name + fileType.defaultExtension
             val classContent = if (item.codeType == CodeType.Java) item.javaFile.toString() else item.kotlinFile.toString()
-            val psiFile = actionModel.psiFileFactory.createFileFromText(fileName!!, fileType, classContent)
+            val psiFile = actionModel.psiFileFactory.createFileFromText(fileName, fileType, classContent)
 
             if (actionModel.psiDirectory == null) {
-                Toast.make(actionModel.project, MessageType.ERROR, "can not find directory!!!")
+                Messages.showErrorDialog("提示", "can not find directory!!!")
                 return
             }
 

@@ -1,6 +1,5 @@
 package handler
 
-import code.DesignPatternCodeGenerateFactory
 import code.FactoryType
 import model.ActionModel
 import model.DesignPatternModel
@@ -19,13 +18,7 @@ class FactoryHandler : BaseHandler() {
         entity.packageName = PsiUtils.getPackageName(actionModel.psiDirectoryFactory, actionModel.psiDirectory)
         entity.className = "XxFactory"
 
-        DesignPatternCodeWriter.write(
-                actionModel,
-                model,
-                entity,
-                ActionType.Create,
-                CodeType.Java,
-                DesignPatternCodeGenerateFactory.generateCodeGenerate(model, entity))
+        DesignPatternCodeWriter.write(actionModel, model, entity)
     }
 
 }

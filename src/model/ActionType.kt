@@ -5,6 +5,8 @@ package model
  * @time 2018/5/31
  */
 enum class ActionType {
+    /** modify old class **/
     Update,
+    /** create new class **/
     Create
 }
