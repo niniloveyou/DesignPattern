@@ -7,10 +7,8 @@ import javax.lang.model.element.Modifier
 import model.ActionModel
 import com.intellij.psi.PsiModifier
 import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.KModifier
 import model.CodeFile
 import com.squareup.kotlinpoet.TypeSpec as KotlinTypeSpec
-
 /**
  * @author deadline
  * @time 2018/6/1
@@ -21,13 +19,9 @@ enum class SingletonType {
 }
 
 class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
-    override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
-        val thisType = ClassName.get(entity.packageName, entity.className)
-        val classSpec = KotlinTypeSpec.classBuilder(entity.className!!)
-                .build()
 
-        val fileSpec = FileSpec.builder(entity.packageName, entity.className!!).build()
-        return arrayListOf(CodeFile(entity.packageName, fileSpec))
+    override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
+        return getKotlinFile(entity)
     }
 
     override fun generateJavaFile(entity: SingletonEntity): List<CodeFile> {
@@ -87,7 +81,7 @@ class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
 
 class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
     override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return getKotlinFile(entity)
     }
 
     override fun generateJavaFile(entity: SingletonEntity): List<CodeFile> {
@@ -161,4 +155,9 @@ class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
         val psiMethod = actionModel.psiElementFactory.createMethodFromText(methodText, actionModel.psiClass)
         actionModel.psiClass.add(psiMethod)
     }
+}
+
+fun getKotlinFile(entity: SingletonEntity): List<CodeFile> {
+    val classSpec = KotlinTypeSpec.objectBuilder(entity.className!!).build()
+    return arrayListOf(CodeFile(entity.packageName, FileSpec.get(entity.packageName, classSpec)))
 }
