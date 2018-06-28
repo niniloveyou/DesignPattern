@@ -1,11 +1,10 @@
 package ui
 
-import handler.DesignPatternHandlerFactory
+import handler.HandlerFactory
 import model.ActionModel
 import model.ActionType
 import model.DesignPatternEnum
 import model.DesignPatternModel
-import utils.Utils
 import java.awt.Color
 import java.awt.GridLayout
 import java.awt.event.ActionListener
@@ -62,7 +61,7 @@ class DesignPatternJFrame(title: String?, actionType: ActionType) : JFrame(title
      */
     private fun dealPatternClick(model: DesignPatternModel) {
         closeJFrame()
-        val handler = DesignPatternHandlerFactory.generateHandler(model)
+        val handler = HandlerFactory.generateHandler(model)
         handler.handle(actionModel, model)
     }
 

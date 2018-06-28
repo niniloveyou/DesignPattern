@@ -7,7 +7,7 @@ import model.DesignPatternModel
  * @author deadline
  * @time 2018/5/11
  */
-class DesignPatternHandlerFactory {
+class HandlerFactory {
 
     companion object {
 

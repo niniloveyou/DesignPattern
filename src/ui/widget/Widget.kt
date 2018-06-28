@@ -7,10 +7,8 @@ package ui.widget
  *
  */
 class Widget private constructor(builder: Builder) {
-    private val number: Int
 
     init {
-        this.number = builder.number
     }
 
     class Builder {
