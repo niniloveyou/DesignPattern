@@ -12,6 +12,8 @@ import utils.Utils
 /**
  * @author deadline
  * @time 2018/5/16
+ *
+ * 最终更新代码或者生成新的文件
  */
 object DesignPatternCodeWriter {
 
@@ -42,9 +44,11 @@ object DesignPatternCodeWriter {
                 })
     }
 
+    /**
+     * create new file
+     */
     private fun writeFile(actionModel: ActionModel, list: List<CodeFile>){
-        for (i in list.indices) {
-            val item = list[i]
+        for (item in list) {
             val fileType = if (item.codeType == CodeType.Java) JavaFileType() else KotlinFileType()
             val fileName = if (item.codeType == CodeType.Java) item.javaFile?.typeSpec?.name + fileType.defaultExtension else item.kotlinFile?.name + fileType.defaultExtension
             val classContent = if (item.codeType == CodeType.Java) item.javaFile.toString() else item.kotlinFile.toString()

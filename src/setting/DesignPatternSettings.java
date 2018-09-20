@@ -26,6 +26,9 @@ import static utils.ConstantKt.Default_Language_Kotlin;
 /**
  * @author deadline
  * @time 2018/6/23
+ *
+ * 全局的关于该插件的设置
+ * Preferences -> Other Settings -> Design Pattern
  */
 public class DesignPatternSettings implements Configurable {
 

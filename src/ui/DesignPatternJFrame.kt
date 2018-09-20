@@ -22,6 +22,7 @@ class DesignPatternJFrame(title: String?, actionType: ActionType) : JFrame(title
     private lateinit var actionModel: ActionModel
 
     init {
+        // 筛选不支持项，不会显示在可选设计模式表格中
         for ((index, item) in DesignPatternEnum.values().withIndex()) {
             if (actionType == ActionType.Update && item.supportUpdate
                     || actionType == ActionType.Create && item.supportCreate) {

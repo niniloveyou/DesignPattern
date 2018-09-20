@@ -8,7 +8,7 @@ import com.intellij.psi.PsiField
  * @author deadline
  * @time 2018/6/1
  */
-open class BaseEntity {
+sealed class BaseEntity {
 
     var className: String? = null
 

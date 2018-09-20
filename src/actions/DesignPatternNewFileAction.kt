@@ -11,7 +11,9 @@ import model.ActionType
 import com.intellij.openapi.actionSystem.LangDataKeys
 import utils.Utils
 
-
+/**
+ * create new java/kotlin file
+ */
 class DesignPatternNewFileAction : AnAction(Utils.getIcon("design_pattern_file.png")) {
 
     private var actionHelper: ActionHelper = object : ActionHelper(ActionType.Create) {

@@ -14,9 +14,13 @@ import ui.DesignPatternJFrame
 import java.awt.Dimension
 import javax.swing.WindowConstants
 
+
+
 /**
  * @author deadline
  * @time 2018/6/15
+ *
+ * 统一处理多个action的共有逻辑
  */
 abstract class ActionHelper(private val actionType: ActionType) {
 

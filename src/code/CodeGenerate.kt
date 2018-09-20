@@ -26,6 +26,7 @@ interface ICodeGenerate<T: BaseEntity> {
  * @time 2018/6/20
  */
 open class BaseCodeGenerate<T: BaseEntity> : ICodeGenerate<T> {
+
     override fun generateKotlinFile(entity: T): List<CodeFile> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

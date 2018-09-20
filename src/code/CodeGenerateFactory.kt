@@ -9,40 +9,41 @@ import model.entity.SingletonEntity
  * @author deadline
  * @time 2018/5/11
  */
-class DesignPatternCodeGenerateFactory {
+object DesignPatternCodeGenerateFactory {
 
-    companion object {
+    /**
+     * 创建对应的handler
+     */
+    fun <T : BaseEntity> generateCodeGenerate(
+            model: DesignPatternModel, entity: T): ICodeGenerate<T> {
+        return when (model.patternEnum) {
 
-        /**
-         * 创建对应的handler
-         */
-        fun <T: BaseEntity> generateCodeGenerate(
-                model: DesignPatternModel, entity: T): ICodeGenerate<T> {
-           when(model.patternEnum) {
-
-               DesignPatternEnum.Factory -> {
-
-               }
-
-               DesignPatternEnum.Singleton -> {
-                    val singleton = entity as SingletonEntity
-                    return if (singleton.type == SingletonType.Hungry) {
-                        SingletonHungryGenerate() as ICodeGenerate<T>
-                    } else {
-                        SingletonLazyGenerate() as ICodeGenerate<T>
-                    }
+            DesignPatternEnum.Singleton -> {
+                val singleton = entity as SingletonEntity
+                if (singleton.type == SingletonType.Hungry) {
+                    SingletonHungryGenerate()
+                } else {
+                    SingletonLazyGenerate()
                 }
+            }
 
-               DesignPatternEnum.Builder -> {
-                    return BuilderGenerate() as ICodeGenerate<T>
-               }
+            DesignPatternEnum.Builder -> {
+                BuilderGenerate()
+            }
 
-               DesignPatternEnum.Prototype -> {
+            DesignPatternEnum.Factory -> {
 
-               }
+            }
 
-           }
-            throw IllegalArgumentException("unknown design pattern !!!")
-        }
+            DesignPatternEnum.Prototype -> {
+
+            }
+            else -> {
+                throw IllegalArgumentException("unknown design pattern !!!")
+            }
+
+        } as ICodeGenerate<T>
+
     }
+
 }

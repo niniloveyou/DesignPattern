@@ -13,10 +13,11 @@ import com.squareup.kotlinpoet.TypeSpec as KotlinTypeSpec
  * @author deadline
  * @time 2018/6/1
  */
-enum class SingletonType {
-    Hungry,
-    Lazy
+enum class SingletonType(name: String) {
+    Hungry("饿汉模式"),
+    Lazy("懒汉模式")
 }
+
 
 class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
 
@@ -80,6 +81,7 @@ class SingletonHungryGenerate : BaseCodeGenerate<SingletonEntity>() {
 }
 
 class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
+
     override fun generateKotlinFile(entity: SingletonEntity): List<CodeFile> {
         return getKotlinFile(entity)
     }
@@ -157,7 +159,7 @@ class SingletonLazyGenerate : BaseCodeGenerate<SingletonEntity>() {
     }
 }
 
-fun getKotlinFile(entity: SingletonEntity): List<CodeFile> {
+private fun getKotlinFile(entity: SingletonEntity): List<CodeFile> {
     val classSpec = KotlinTypeSpec.objectBuilder(entity.className!!).build()
     return arrayListOf(CodeFile(entity.packageName, FileSpec.get(entity.packageName, classSpec)))
 }

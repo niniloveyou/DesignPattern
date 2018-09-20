@@ -17,18 +17,16 @@ import ui.DesignPatternJFrame
 import java.awt.Dimension
 import javax.swing.WindowConstants
 
-
-class DesignPatternAction : BaseGenerateAction {
+/**
+ * shortcut action
+ */
+class DesignPatternAction(handler: CodeInsightActionHandler? = null) : BaseGenerateAction(handler) {
 
     private var actionHelper: ActionHelper = object : ActionHelper(ActionType.Update) {
         override fun getTargetClass(editor: Editor, file: PsiFile): PsiClass? {
             return this@DesignPatternAction.getTargetClass(editor, file)
         }
     }
-
-    constructor() : super(null)
-
-    constructor(handler: CodeInsightActionHandler) : super(handler)
 
     override fun actionPerformed(event: AnActionEvent) {
        actionHelper.performAction(event)

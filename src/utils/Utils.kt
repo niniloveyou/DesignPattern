@@ -21,22 +21,21 @@ import javax.swing.Icon
  */
 object Utils {
 
-    fun <T> showChooseDialog(sourceArray: Array<Pair<String, T>>): T {
+    fun <T> showChooseDialog(sourceArray: Array<Pair<String, T>>, block: (T) -> String): T {
         checkNotNull(sourceArray)
         val array: Array<String?> = arrayOfNulls<String>(sourceArray.size)
         for ((index, item) in sourceArray.withIndex()) {
             array[index] = item.first
-            item.second.toString()
         }
         val position = Messages.showChooseDialog("choose Type", "choose Type", array, array[0], null)
         return sourceArray[position].second
     }
 
-    fun <T> showChooseDialog(sourceArray: Array<T>): T {
+    fun <T> showChooseDialog(sourceArray: Array<T>, block: (T) -> String): T {
         checkNotNull(sourceArray)
         val array: Array<String?> = arrayOfNulls<String>(sourceArray.size)
         for ((index, item) in sourceArray.withIndex()) {
-            array[index] = item.toString()
+            array[index] = block(item)
         }
         val position = Messages.showChooseDialog("choose Type", "choose Type", array, array[0], null)
         return sourceArray[position]

@@ -6,14 +6,14 @@ enum class DesignPatternEnum(val title: String,
 
     // 创建型模式
 
-    /** 工厂模式 **/
-    Factory("工厂模式", true, false),
-
     /** 单例模式 **/
     Singleton("单例模式", true, true),
 
     /** 建造者模式 **/
     Builder("建造者模式", true, true),
+
+    /** 工厂模式 **/
+    Factory("工厂模式", true, false),
 
     /** 原型模式 **/
     Prototype("原型模式", true, true),
