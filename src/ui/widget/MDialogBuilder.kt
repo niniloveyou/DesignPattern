@@ -3,6 +3,7 @@ package ui.widget
 import com.intellij.openapi.ui.DialogBuilder
 import model.DesignPatternEnum
 import javax.swing.JPanel
+import javax.swing.JSpinner
 
 /**
  * @author deadline
@@ -19,7 +20,7 @@ class MDialogBuilder(var list: List<WidgetItem>, patternEnum: DesignPatternEnum)
         val jPanel: JPanel = JPanel()
         for (widgetItem in list) {
             when (widgetItem.widgetType) {
-                //WidgetType.Spinner ->
+               // WidgetType.Spinner -> JSpinner()
             }
         }
         return jPanel
