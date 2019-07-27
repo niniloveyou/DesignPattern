@@ -30,7 +30,7 @@ abstract class ActionHelper(private val actionType: ActionType) {
 
     abstract fun getTargetClass(editor: Editor, file: PsiFile): PsiClass?
 
-    fun performAction(event: AnActionEvent){
+    fun performAction(event: AnActionEvent) {
         val project = event.getData(PlatformDataKeys.PROJECT)
         val editor = event.getData(PlatformDataKeys.EDITOR)
         var mFile: PsiFile? = null
