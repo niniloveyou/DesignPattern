@@ -68,6 +68,7 @@ abstract class ActionHelper(private val actionType: ActionType) {
 
 
     private fun showDesignPatternJFrame(e: AnActionEvent) {
+
         mDialog.defaultCloseOperation = WindowConstants.DISPOSE_ON_CLOSE
         mDialog.preferredSize = Dimension(600, 600)
         mDialog.pack()
